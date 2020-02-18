@@ -24,4 +24,6 @@ class EditFragment(parentViewModel: MainViewModel) :Fragment(){
         binding.setLifecycleOwner { lifecycle }
         return binding.root
     }
+
+
 }
