@@ -26,14 +26,14 @@
                 android:padding="3dp"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floatingActionButton"
+                android:id="@+id/add_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:backgroundTint="@color/line_color"
                 app:borderWidth="0dp"
                 android:clickable="true"
-
+                android:onClick="@{()->vm.addBtnClick()}"
                 android:src="@drawable/ic_plus" />
         </FrameLayout>
 
