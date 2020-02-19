@@ -16,8 +16,6 @@ import com.example.line.ui.main.EditFragment
 import com.example.line.ui.main.MainFragment
 import com.example.line.ui.main.MainViewModel
 import kotlinx.android.synthetic.main.edit_fragment.*
-import java.security.Permission
-import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
     var image_uri: Uri? = null
@@ -58,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                                     )
                                     val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                                     cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
-                                    startActivityForResult(cameraIntent, 0)
+                                    startActivityForResult(cameraIntent, 100)
                                 }
                                 else{
                                     ActivityCompat.requestPermissions(this,
@@ -73,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                     2->{
                         val intent = Intent(Intent.ACTION_PICK)
                         intent.type = "image/*"
-                        startActivityForResult(intent,0)
+                        startActivityForResult(intent,200)
                     }
                 }
             })
@@ -83,9 +81,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK){
-            //set image captured to image view
-            test_view.setImageURI(image_uri)
-        }
+        if (resultCode != Activity.RESULT_OK) return
+        if (requestCode == 100) test_view.setImageURI(image_uri)
+        else if(requestCode == 200) test_view.setImageURI(data?.data)
+
     }
 }
