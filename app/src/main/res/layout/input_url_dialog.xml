@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="com.example.line.ui.main.MainViewModel" />
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="300dp"
+    android:layout_gravity="center"
+    android:layout_height="100dp">
+    <EditText
+        android:id="@+id/url_input_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:hint="URL 입력"
+        android:text="@={vm.imageUrl}"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="추가"
+            android:textColor="@android:color/white"
+            android:background="@color/button_background"
+            android:layout_margin="10dp"
+            android:onClick="@{()->vm.handleBtnMode(4)}"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="취소"
+            android:textColor="@android:color/white"
+            android:background="@color/button_background"
+            android:layout_margin="10dp"
+            android:onClick="@{()->vm.handleBtnMode(5)}"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+</layout>

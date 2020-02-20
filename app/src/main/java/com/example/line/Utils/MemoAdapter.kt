@@ -1,5 +1,6 @@
 package com.example.line.Utils
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -25,7 +26,12 @@ class MemoAdapter :RecyclerView.Adapter<MemoAdapter.MemoViewHolder>() {
         mList.value!![position].let { item-> with(holder){
             title.text=item.title
             des.text=item.des
-            Glide.with(holder.itemView).load("https://live.staticflickr.com/4561/38054606355_26429c884f_b.jpg").into(image)
+            if(item.photoList.size!=0){
+                if(item.photoList[0] is String)
+                Glide.with(holder.itemView).load("https://live.staticflickr.com/4561/38054606355_26429c884f_b.jpg").centerCrop().into(image)
+                else
+                    image.setImageURI(item.photoList[0] as Uri)
+            }
         }}
     }
 

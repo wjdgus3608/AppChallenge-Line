@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="com.example.line.ui.main.MainViewModel" />
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="400dp"
+    android:layout_height="300dp"
+    android:layout_gravity="center"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="사진 추가 선택"
+        android:gravity="center"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="카메라로 추가"
+            android:textColor="@android:color/white"
+            android:background="@color/button_background"
+            android:layout_margin="10dp"
+            android:onClick="@{()->vm.handleBtnMode(1)}"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="사진첩으로 추가"
+            android:textColor="@android:color/white"
+            android:background="@color/button_background"
+            android:layout_margin="10dp"
+            android:onClick="@{()->vm.handleBtnMode(2)}"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="URL 추가"
+            android:textColor="@android:color/white"
+            android:background="@color/button_background"
+            android:layout_margin="10dp"
+            android:onClick="@{()->vm.handleBtnMode(3)}"/>
+</LinearLayout>
+</layout>

@@ -52,44 +52,29 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:gravity="end">
-        <ImageButton
-            android:id="@+id/edit_img_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_camera"
-            android:scaleType="fitCenter"
-            android:onClick="@{()->vm.cameraImgAdd()}"
-            android:backgroundTint="@color/button_background"
-            />
-        <ImageButton
-            android:id="@+id/edit_img_gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_gallery"
-            android:onClick="@{()->vm.galleryImgAdd()}"
-            android:backgroundTint="@color/button_background"/>
         <Button
             android:id="@+id/edit_img_url"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="+ URL"
+            android:text="+ 이미지 추가"
             android:textSize="15sp"
             android:textColor="@android:color/white"
-            android:onClick="@{()->vm.urlImgAdd()}"
+            android:onClick="@{()->vm.handleBtnMode(0)}"
             android:backgroundTint="@color/button_background"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/edit_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        bind_pre_items="@{vm.imageList}"
+        bind_vm="@{vm}"/>
     <ImageView
-        android:id="@+id/test_view"
-        android:layout_width="200dp"
-        android:layout_height="200dp"/>
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:id="@+id/test_view"/>
 
     <Button
         android:id="@+id/edit_submit_btn"

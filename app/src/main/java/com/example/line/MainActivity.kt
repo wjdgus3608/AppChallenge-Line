@@ -8,10 +8,16 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.example.line.databinding.InputUrlDialogBinding
 import com.example.line.ui.main.EditFragment
 import com.example.line.ui.main.MainFragment
 import com.example.line.ui.main.MainViewModel
@@ -35,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 }
             })
             mainViewModel.toastMsg.observe(this, Observer { Toast.makeText(this,it,it.length).show() })
-            mainViewModel.imageInputMode.observe(this, Observer {
+            mainViewModel.inputBtnMode.observe(this, Observer {
                 when(it){
                     1->{
                         //camera intent
@@ -69,10 +75,18 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     2->{
-                        val intent = Intent(Intent.ACTION_PICK)
-                        intent.type = "image/*"
-                        startActivityForResult(intent,200)
+                        if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                            ==PackageManager.PERMISSION_GRANTED ){
+                            val intent = Intent(Intent.ACTION_PICK)
+                            intent.type = "image/*"
+                            startActivityForResult(intent,200)
+                        }
+                        else{
+                            ActivityCompat.requestPermissions(this,
+                                arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),0)
+                        }
                     }
+
                 }
             })
 
@@ -82,8 +96,8 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != Activity.RESULT_OK) return
-        if (requestCode == 100) test_view.setImageURI(image_uri)
-        else if(requestCode == 200) test_view.setImageURI(data?.data)
+        if (requestCode == 100) mainViewModel.imageAdd(image_uri as Any)
+        else if(requestCode == 200) mainViewModel.imageAdd(data?.data as Any)
 
     }
 }
