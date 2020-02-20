@@ -62,6 +62,7 @@ class MainViewModel : ViewModel() {
         handleBtnMode(-1)
     }
     fun backBtnClick(){
+        initImgList()
         handleBtnMode(-1)
         fragmentMode.postValue(1)
     }

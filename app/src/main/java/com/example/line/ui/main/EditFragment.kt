@@ -61,12 +61,18 @@ class EditFragment(parentViewModel: MainViewModel) :Fragment(){
                 }
                 6->{
                     viewModel.submitBtnClick()
-                    edit_title_view?.text?.clear()
-                    edit_des_view?.text?.clear()
-
+                    clearFrgInput()
+                }
+                7->{
+                    viewModel.backBtnClick()
+                    clearFrgInput()
                 }
             }
         })
 
+    }
+    fun clearFrgInput(){
+        edit_title_view?.text?.clear()
+        edit_des_view?.text?.clear()
     }
 }
