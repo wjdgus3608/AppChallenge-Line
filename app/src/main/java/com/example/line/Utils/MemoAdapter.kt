@@ -28,7 +28,7 @@ class MemoAdapter :RecyclerView.Adapter<MemoAdapter.MemoViewHolder>() {
             des.text=item.des
             if(item.photoList.size!=0){
                 if(item.photoList[0] is String)
-                Glide.with(holder.itemView).load("https://live.staticflickr.com/4561/38054606355_26429c884f_b.jpg").centerCrop().into(image)
+                Glide.with(holder.itemView).load(item.photoList[0]).centerCrop().into(image)
                 else
                     image.setImageURI(item.photoList[0] as Uri)
             }

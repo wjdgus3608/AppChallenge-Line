@@ -14,6 +14,7 @@ import com.example.line.R
 import com.example.line.databinding.EditFragmentBinding
 import com.example.line.databinding.InputTypeDialogBinding
 import com.example.line.databinding.InputUrlDialogBinding
+import kotlinx.android.synthetic.main.edit_fragment.*
 
 
 class EditFragment(parentViewModel: MainViewModel) :Fragment(){
@@ -57,6 +58,12 @@ class EditFragment(parentViewModel: MainViewModel) :Fragment(){
                 5->{
                     viewModel.urlCancelBtnClick()
                     urlInputView.urlInputView.text?.clear()
+                }
+                6->{
+                    viewModel.submitBtnClick()
+                    edit_title_view?.text?.clear()
+                    edit_des_view?.text?.clear()
+
                 }
             }
         })

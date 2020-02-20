@@ -17,10 +17,11 @@ class MainViewModel : ViewModel() {
     var inputBtnMode=MutableLiveData<Int>()
     var imageUrl=MutableLiveData<String>()
     var imageList=MutableLiveData<ArrayList<Any>>()
-    var images=ArrayList<Any>()
+    lateinit var images:ArrayList<Any>
     init {
         fragmentMode.value=1
         inputBtnMode.value=-1
+        initImgList()
         clearDigData()
         mList.value=ArrayList()
         imageList.value= ArrayList()
@@ -29,39 +30,46 @@ class MainViewModel : ViewModel() {
     }
     fun addItem(item:Memo) = mList.value!!.add(item)
     fun addBtnClick(){
-        fragmentMode.value=2
+        fragmentMode.postValue(2)
     }
     fun handleBtnMode(mode:Int){
-        inputBtnMode.value=mode
+        inputBtnMode.postValue(mode)
     }
     fun submitBtnClick(){
         if(memoTitle.value.isNullOrBlank() || memoDes.value.isNullOrBlank()){
             toastMsg.postValue("입력되지 않은 칸이 있습니다!")
         }
         else {
-            addItem(Memo(memoTitle.value!!, memoDes.value!!, imageList.value!!))
-            fragmentMode.value = 1
+            var tmpList=ArrayList<Any>()
+            tmpList.addAll(images!!)
+            addItem(Memo(memoTitle.value!!, memoDes.value!!, tmpList))
+            initImgList()
+            fragmentMode.postValue(1)
         }
+        handleBtnMode(-1)
     }
     fun imageAdd(image:Any){
-        images.add(image)
+        images!!.add(image)
         imageList.postValue(images)
     }
     fun urlSubmitBtnClick(){
         if(!imageUrl.value.isNullOrBlank() && URLUtil.isValidUrl(imageUrl.value))
             imageAdd(imageUrl.value as Any)
         else toastMsg.postValue("올바르지 않은 URL 입니다.")
-        clearDigData()
         handleBtnMode(-1)
     }
     fun urlCancelBtnClick() {
-        clearDigData()
         handleBtnMode(-1)
     }
     fun backBtnClick(){
-        fragmentMode.value=1
+        handleBtnMode(-1)
+        fragmentMode.postValue(1)
     }
     fun clearDigData(){
         imageUrl.value=""
+    }
+    fun initImgList(){
+        images= ArrayList()
+        imageList.postValue(images)
     }
 }
