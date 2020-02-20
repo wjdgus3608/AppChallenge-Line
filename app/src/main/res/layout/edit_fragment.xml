@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="vm"
+            type="com.example.line.ui.main.MainViewModel" />
+    </data>
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_back"
+        android:onClick="@{()->vm.handleBtnMode(7)}"
+        android:layout_marginBottom="50dp"/>
+
+    <EditText
+        android:id="@+id/edit_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="메모 제목"
+        android:text="@={vm.memoTitle}"
+        android:background="@drawable/rounded_background"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
+        android:id="@+id/edit_des_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:hint="메모 내용"
+        android:text="@={vm.memoDes}"
+        android:background="@drawable/rounded_background"
+        android:layout_marginBottom="10dp"
+       />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="end">
+        <Button
+            android:id="@+id/edit_img_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="+ 이미지 추가"
+            android:textSize="15sp"
+            android:textColor="@android:color/white"
+            android:onClick="@{()->vm.handleBtnMode(0)}"
+            android:backgroundTint="@color/button_background"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/edit_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        bind_pre_items="@{vm.imageList}"
+        bind_vm="@{vm}"/>
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:id="@+id/test_view"/>
+
+    <Button
+        android:id="@+id/edit_submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="메모 추가"
+        android:textColor="@android:color/white"
+        android:onClick="@{()->vm.handleBtnMode(6)}"
+        android:backgroundTint="@color/button_background"/>
+</LinearLayout>
+</layout>
