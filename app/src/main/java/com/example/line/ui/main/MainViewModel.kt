@@ -1,6 +1,7 @@
 package com.example.line.ui.main
 
 import android.content.Intent
+import android.util.Log
 import android.webkit.URLUtil
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.MutableLiveData

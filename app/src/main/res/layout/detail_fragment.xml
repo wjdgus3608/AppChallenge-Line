@@ -59,7 +59,8 @@
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        bind_image_items="@{vm.selectedMemo.photoList}"/>
 
 </LinearLayout>
 </layout>
