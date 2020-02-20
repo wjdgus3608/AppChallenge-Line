@@ -18,6 +18,7 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.line.databinding.InputUrlDialogBinding
+import com.example.line.ui.main.DetailFragment
 import com.example.line.ui.main.EditFragment
 import com.example.line.ui.main.MainFragment
 import com.example.line.ui.main.MainViewModel
@@ -37,6 +38,9 @@ class MainActivity : AppCompatActivity() {
                         .commitNow()
                     2->supportFragmentManager.beginTransaction()
                         .replace(R.id.container, EditFragment(mainViewModel))
+                        .commitNow()
+                    3->supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, DetailFragment(mainViewModel))
                         .commitNow()
                 }
             })

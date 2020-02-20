@@ -1,6 +1,7 @@
 package com.example.line.ui.main
 
 import android.content.Intent
+import android.util.Log
 import android.webkit.URLUtil
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.MutableLiveData
@@ -17,10 +18,12 @@ class MainViewModel : ViewModel() {
     var inputBtnMode=MutableLiveData<Int>()
     var imageUrl=MutableLiveData<String>()
     var imageList=MutableLiveData<ArrayList<Any>>()
+    var selectedMemo=MutableLiveData<Memo?>()
     lateinit var images:ArrayList<Any>
     init {
         fragmentMode.value=1
         inputBtnMode.value=-1
+        selectedMemo.value=null
         initImgList()
         clearDigData()
         mList.value=ArrayList()
@@ -29,6 +32,7 @@ class MainViewModel : ViewModel() {
         addItem(Memo("sample1","des sample1",ArrayList()))
     }
     fun addItem(item:Memo) = mList.value!!.add(item)
+    fun deleteItem(item:Memo) = mList.value!!.remove(item)
     fun addBtnClick(){
         fragmentMode.postValue(2)
     }
@@ -40,8 +44,12 @@ class MainViewModel : ViewModel() {
             toastMsg.postValue("입력되지 않은 칸이 있습니다!")
         }
         else {
-            var tmpList=ArrayList<Any>()
-            tmpList.addAll(images!!)
+            if(selectedMemo.value!=null) {
+                deleteItem(selectedMemo.value!!)
+                selectedMemo.postValue(null)
+            }
+            val tmpList=ArrayList<Any>()
+            tmpList.addAll(images)
             addItem(Memo(memoTitle.value!!, memoDes.value!!, tmpList))
             initImgList()
             fragmentMode.postValue(1)
@@ -49,7 +57,7 @@ class MainViewModel : ViewModel() {
         handleBtnMode(-1)
     }
     fun imageAdd(image:Any){
-        images!!.add(image)
+        images.add(image)
         imageList.postValue(images)
     }
     fun urlSubmitBtnClick(){
@@ -71,6 +79,27 @@ class MainViewModel : ViewModel() {
     }
     fun initImgList(){
         images= ArrayList()
+        imageList.postValue(images)
+    }
+    fun detailBackBtnClick(){
+        selectedMemo.postValue(null)
+        fragmentMode.postValue(1)
+    }
+    fun detailDeleteBtnClick(){
+        val tmpList=mList.value
+        tmpList!!.remove(selectedMemo.value)
+        mList.postValue(tmpList)
+        selectedMemo.postValue(null)
+        fragmentMode.postValue(1)
+    }
+    fun detailEditBtnClick(){
+        loadSelected()
+        fragmentMode.postValue(2)
+    }
+    fun loadSelected(){
+        memoTitle.postValue(selectedMemo.value!!.title)
+        memoDes.postValue(selectedMemo.value!!.des)
+        images.addAll(selectedMemo.value!!.photoList)
         imageList.postValue(images)
     }
 }
