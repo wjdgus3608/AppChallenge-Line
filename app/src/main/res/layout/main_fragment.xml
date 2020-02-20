@@ -23,6 +23,7 @@
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 bind_items="@{vm.mList}"
+                bind_vm="@{vm}"
                 android:padding="3dp"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
