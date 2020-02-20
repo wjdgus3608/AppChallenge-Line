@@ -36,9 +36,6 @@ class DetailFragment(parentViewModel: MainViewModel) :Fragment(){
                 8->{
 
                 }
-                9->{
-
-                }
             }
         })
     }

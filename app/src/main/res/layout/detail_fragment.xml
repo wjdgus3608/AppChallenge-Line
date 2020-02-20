@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/ic_edit"
             android:layout_alignParentEnd="true"
-            android:onClick="@{()->vm.handleBtnMode(10)}"
+            android:onClick="@{()->vm.detailEditBtnClick()}"
             />
     </RelativeLayout>
     <TextView

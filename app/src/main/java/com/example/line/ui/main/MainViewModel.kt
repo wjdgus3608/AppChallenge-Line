@@ -32,6 +32,7 @@ class MainViewModel : ViewModel() {
         addItem(Memo("sample1","des sample1",ArrayList()))
     }
     fun addItem(item:Memo) = mList.value!!.add(item)
+    fun deleteItem(item:Memo) = mList.value!!.remove(item)
     fun addBtnClick(){
         fragmentMode.postValue(2)
     }
@@ -43,6 +44,10 @@ class MainViewModel : ViewModel() {
             toastMsg.postValue("입력되지 않은 칸이 있습니다!")
         }
         else {
+            if(selectedMemo.value!=null) {
+                deleteItem(selectedMemo.value!!)
+                selectedMemo.postValue(null)
+            }
             val tmpList=ArrayList<Any>()
             tmpList.addAll(images)
             addItem(Memo(memoTitle.value!!, memoDes.value!!, tmpList))
@@ -86,5 +91,15 @@ class MainViewModel : ViewModel() {
         mList.postValue(tmpList)
         selectedMemo.postValue(null)
         fragmentMode.postValue(1)
+    }
+    fun detailEditBtnClick(){
+        loadSelected()
+        fragmentMode.postValue(2)
+    }
+    fun loadSelected(){
+        memoTitle.postValue(selectedMemo.value!!.title)
+        memoDes.postValue(selectedMemo.value!!.des)
+        images.addAll(selectedMemo.value!!.photoList)
+        imageList.postValue(images)
     }
 }
