@@ -1,6 +1,7 @@
 package com.example.line.Utils
 
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +20,11 @@ class ImagePagerAdapter : PagerAdapter(){
             if(it is String){
                 Glide.with(view).load(it).centerCrop().into(view.image_view)
             }
+            else if(it is Uri){
+                view.image_view.setImageURI(it)
+            }
             else{
-                view.image_view.setImageURI(it as Uri)
+                Log.e("log",it.toString())
             }
         }
         container.addView(view)

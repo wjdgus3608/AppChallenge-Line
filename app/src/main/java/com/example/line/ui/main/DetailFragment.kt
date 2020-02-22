@@ -28,15 +28,4 @@ class DetailFragment(parentViewModel: MainViewModel) :Fragment(){
         binding.setLifecycleOwner { lifecycle }
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.inputBtnMode.observe(this as LifecycleOwner, Observer {
-            when(it){
-                8->{
-
-                }
-            }
-        })
-    }
 }

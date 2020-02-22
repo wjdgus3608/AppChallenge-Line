@@ -17,6 +17,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.example.line.DataClass.Memo
+import com.example.line.Utils.MemoRepo
 import com.example.line.databinding.InputUrlDialogBinding
 import com.example.line.ui.main.DetailFragment
 import com.example.line.ui.main.EditFragment
@@ -26,10 +28,13 @@ import kotlinx.android.synthetic.main.edit_fragment.*
 
 class MainActivity : AppCompatActivity() {
     var image_uri: Uri? = null
-    val mainViewModel=MainViewModel()
+    lateinit var mainViewModel:MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+        val repo=MemoRepo(application)
+        mainViewModel=MainViewModel(repo)
+        repo.getAllMemo().observe(this, Observer { mainViewModel.mList.postValue(it as? ArrayList<Memo>) })
         if (savedInstanceState == null) {
             mainViewModel.fragmentMode.observe(this, Observer {
                 when(it){

@@ -4,12 +4,15 @@ import android.content.Intent
 import android.util.Log
 import android.webkit.URLUtil
 import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bumptech.glide.Glide
 import com.example.line.DataClass.Memo
+import com.example.line.Utils.MemoRepo
+import kotlin.concurrent.thread
 
-class MainViewModel : ViewModel() {
+class MainViewModel(repo:MemoRepo) : ViewModel() {
     var mList=MutableLiveData<ArrayList<Memo>>()
     var fragmentMode=MutableLiveData<Int>()
     var memoTitle=MutableLiveData<String>()
@@ -19,20 +22,20 @@ class MainViewModel : ViewModel() {
     var imageUrl=MutableLiveData<String>()
     var imageList=MutableLiveData<ArrayList<Any>>()
     var selectedMemo=MutableLiveData<Memo?>()
-    lateinit var images:ArrayList<Any>
+    var images=ArrayList<Any>()
+    var memoRepo:MemoRepo
     init {
         fragmentMode.value=1
         inputBtnMode.value=-1
         selectedMemo.value=null
         initImgList()
         clearDigData()
-        mList.value=ArrayList()
+        memoRepo=repo
         imageList.value= ArrayList()
-        addItem(Memo("sample1","des sample1",ArrayList()))
-        addItem(Memo("sample1","des sample1",ArrayList()))
     }
-    fun addItem(item:Memo) = mList.value!!.add(item)
-    fun deleteItem(item:Memo) = mList.value!!.remove(item)
+    fun addItem(item:Memo) = memoRepo.insert(item)
+    fun deleteItem(item:Memo) = memoRepo.delete(item.id)
+
     fun addBtnClick(){
         fragmentMode.postValue(2)
     }
@@ -50,7 +53,7 @@ class MainViewModel : ViewModel() {
             }
             val tmpList=ArrayList<Any>()
             tmpList.addAll(images)
-            addItem(Memo(memoTitle.value!!, memoDes.value!!, tmpList))
+            addItem(Memo(0,memoTitle.value!!, memoDes.value!!, tmpList as List<Any>))
             initImgList()
             fragmentMode.postValue(1)
         }
@@ -88,6 +91,7 @@ class MainViewModel : ViewModel() {
     fun detailDeleteBtnClick(){
         val tmpList=mList.value
         tmpList!!.remove(selectedMemo.value)
+        deleteItem(selectedMemo.value!!)
         mList.postValue(tmpList)
         selectedMemo.postValue(null)
         fragmentMode.postValue(1)
