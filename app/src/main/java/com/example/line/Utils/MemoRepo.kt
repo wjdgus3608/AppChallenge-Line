@@ -1,12 +1,8 @@
 package com.example.line.Utils
 
 import android.app.Application
-import android.database.Observable
-import android.os.AsyncTask
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.line.DataClass.Memo
-import kotlin.concurrent.thread
 
 class MemoRepo (application: Application) {
 

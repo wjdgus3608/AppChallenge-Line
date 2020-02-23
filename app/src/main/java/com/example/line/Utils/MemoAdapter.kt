@@ -3,23 +3,17 @@ package com.example.line.Utils
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.line.DataClass.Memo
 import com.example.line.R
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
 import com.example.line.databinding.MemoItemBinding
-import com.example.line.databinding.PreviewItemBinding
 import com.example.line.ui.main.MainViewModel
 import kotlinx.android.synthetic.main.memo_item.view.*
 
@@ -42,9 +36,11 @@ class MemoAdapter(parentViewModel: MainViewModel) :RecyclerView.Adapter<MemoAdap
     }
 
     override fun onBindViewHolder(holder: MemoViewHolder, position: Int) {
+
         mList.value!![position].let { item-> with(holder){
             title.text=item.title
             des.text=item.des
+            image.clipToOutline=true
             if(item.photoList.size!=0){
                 if(item.photoList[0] is String)
                 Glide.with(holder.itemView).load(item.photoList[0]).centerCrop().into(image)

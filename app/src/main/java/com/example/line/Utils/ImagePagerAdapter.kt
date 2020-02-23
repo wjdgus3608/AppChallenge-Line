@@ -16,6 +16,7 @@ class ImagePagerAdapter : PagerAdapter(){
         val inflater = LayoutInflater.from(container.context)
         val view = inflater.inflate(R.layout.viewpager_item, container, false)
 
+        view.clipToOutline=true
         inputList[position].let {
             if(it is String){
                 Glide.with(view).load(it).centerCrop().into(view.image_view)
@@ -29,6 +30,10 @@ class ImagePagerAdapter : PagerAdapter(){
         }
         container.addView(view)
         return view
+    }
+
+    override fun getItemPosition(`object`: Any): Int {
+        return POSITION_NONE
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) = container.removeView(`object` as View?)

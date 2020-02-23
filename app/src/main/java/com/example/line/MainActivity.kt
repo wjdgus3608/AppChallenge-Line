@@ -8,23 +8,16 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
 import com.example.line.DataClass.Memo
 import com.example.line.Utils.MemoRepo
-import com.example.line.databinding.InputUrlDialogBinding
 import com.example.line.ui.main.DetailFragment
 import com.example.line.ui.main.EditFragment
 import com.example.line.ui.main.MainFragment
 import com.example.line.ui.main.MainViewModel
-import kotlinx.android.synthetic.main.edit_fragment.*
 
 class MainActivity : AppCompatActivity() {
     var image_uri: Uri? = null
@@ -34,19 +27,31 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         val repo=MemoRepo(application)
         mainViewModel=MainViewModel(repo)
-        repo.getAllMemo().observe(this, Observer { mainViewModel.mList.postValue(it as? ArrayList<Memo>) })
+        repo.getAllMemo().observe(this, Observer {
+            mainViewModel.mList.postValue(it as? ArrayList<Memo>) })
         if (savedInstanceState == null) {
             mainViewModel.fragmentMode.observe(this, Observer {
+                val transaction=supportFragmentManager.beginTransaction()
+
                 when(it){
-                    1->supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, MainFragment(mainViewModel))
-                        .commitNow()
-                    2->supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, EditFragment(mainViewModel))
-                        .commitNow()
-                    3->supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, DetailFragment(mainViewModel))
-                        .commitNow()
+                    1->{
+                        transaction.setCustomAnimations(R.anim.slide_from_left,R.anim.slide_to_right)
+                        transaction
+                            .replace(R.id.container, MainFragment(mainViewModel))
+                            .commitNow()
+                    }
+                    2->{
+                        transaction.setCustomAnimations(R.anim.slide_from_right,R.anim.slide_to_left)
+                        transaction
+                            .replace(R.id.container, EditFragment(mainViewModel))
+                            .commitNow()
+                    }
+                    3->{
+                        transaction.setCustomAnimations(R.anim.slide_from_right,R.anim.slide_to_left)
+                        transaction
+                            .replace(R.id.container, DetailFragment(mainViewModel))
+                            .commitNow()
+                    }
                 }
             })
             mainViewModel.toastMsg.observe(this, Observer { Toast.makeText(this,it,it.length).show() })
@@ -106,7 +111,10 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != Activity.RESULT_OK) return
         if (requestCode == 100) mainViewModel.imageAdd(image_uri as Any)
-        else if(requestCode == 200) mainViewModel.imageAdd(data?.data as Any)
+        else if(requestCode == 200) {
+            mainViewModel.imageAdd(data?.data as Any)
+        }
 
     }
+
 }

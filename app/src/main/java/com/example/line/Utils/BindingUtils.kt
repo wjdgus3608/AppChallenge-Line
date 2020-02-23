@@ -1,10 +1,7 @@
 package com.example.line.Utils
 
-import android.content.res.Resources
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.line.DataClass.Memo

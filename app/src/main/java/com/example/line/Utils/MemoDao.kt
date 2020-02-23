@@ -1,7 +1,6 @@
 package com.example.line.Utils
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.line.DataClass.Memo
 
@@ -13,7 +12,7 @@ interface MemoDao{
     @Query("DELETE FROM MemoTable WHERE id = :id")
     fun deleteById(id: Long)
 
-    @Query("SELECT * FROM MemoTable ORDER BY id DESC")
+    @Query("SELECT * FROM MemoTable ORDER BY id")
     fun getAllMemo(): LiveData<List<Memo>>
 
 }

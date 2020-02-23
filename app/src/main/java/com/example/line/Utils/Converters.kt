@@ -1,8 +1,6 @@
 package com.example.line.Utils
 
-import android.util.Log
 import androidx.room.TypeConverter
-import com.example.line.DataClass.Memo
 
 class Converters {
 

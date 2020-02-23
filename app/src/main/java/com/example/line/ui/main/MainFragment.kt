@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import com.example.line.R
@@ -24,9 +23,5 @@ class MainFragment(parentViewModel: MainViewModel) : Fragment() {
         binding.setVariable(BR.vm, viewModel)
         binding.setLifecycleOwner { lifecycle }
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 }

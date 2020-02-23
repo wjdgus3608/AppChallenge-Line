@@ -1,16 +1,10 @@
 package com.example.line.ui.main
 
-import android.content.Intent
-import android.util.Log
 import android.webkit.URLUtil
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bumptech.glide.Glide
 import com.example.line.DataClass.Memo
 import com.example.line.Utils.MemoRepo
-import kotlin.concurrent.thread
 
 class MainViewModel(repo:MemoRepo) : ViewModel() {
     var mList=MutableLiveData<ArrayList<Memo>>()
@@ -22,7 +16,7 @@ class MainViewModel(repo:MemoRepo) : ViewModel() {
     var imageUrl=MutableLiveData<String>()
     var imageList=MutableLiveData<ArrayList<Any>>()
     var selectedMemo=MutableLiveData<Memo?>()
-    var images=ArrayList<Any>()
+    lateinit var images:ArrayList<Any>
     var memoRepo:MemoRepo
     init {
         fragmentMode.value=1
@@ -31,7 +25,6 @@ class MainViewModel(repo:MemoRepo) : ViewModel() {
         initImgList()
         clearDigData()
         memoRepo=repo
-        imageList.value= ArrayList()
     }
     fun addItem(item:Memo) = memoRepo.insert(item)
     fun deleteItem(item:Memo) = memoRepo.delete(item.id)
@@ -85,16 +78,18 @@ class MainViewModel(repo:MemoRepo) : ViewModel() {
         imageList.postValue(images)
     }
     fun detailBackBtnClick(){
-        selectedMemo.postValue(null)
+
         fragmentMode.postValue(1)
+        selectedMemo.postValue(null)
     }
     fun detailDeleteBtnClick(){
         val tmpList=mList.value
         tmpList!!.remove(selectedMemo.value)
         deleteItem(selectedMemo.value!!)
         mList.postValue(tmpList)
-        selectedMemo.postValue(null)
         fragmentMode.postValue(1)
+        selectedMemo.postValue(null)
+
     }
     fun detailEditBtnClick(){
         loadSelected()
