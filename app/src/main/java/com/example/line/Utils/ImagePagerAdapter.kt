@@ -1,6 +1,7 @@
 package com.example.line.Utils
 
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,16 +16,24 @@ class ImagePagerAdapter : PagerAdapter(){
         val inflater = LayoutInflater.from(container.context)
         val view = inflater.inflate(R.layout.viewpager_item, container, false)
 
+        view.clipToOutline=true
         inputList[position].let {
             if(it is String){
                 Glide.with(view).load(it).centerCrop().into(view.image_view)
             }
+            else if(it is Uri){
+                view.image_view.setImageURI(it)
+            }
             else{
-                view.image_view.setImageURI(it as Uri)
+                Log.e("log",it.toString())
             }
         }
         container.addView(view)
         return view
+    }
+
+    override fun getItemPosition(`object`: Any): Int {
+        return POSITION_NONE
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) = container.removeView(`object` as View?)

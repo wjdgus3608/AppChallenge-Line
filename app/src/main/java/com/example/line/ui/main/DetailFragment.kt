@@ -7,12 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import com.example.line.R
 import com.example.line.databinding.DetailFragmentBinding
-import com.example.line.databinding.EditFragmentBinding
-import kotlinx.android.synthetic.main.detail_fragment.*
 
 class DetailFragment(parentViewModel: MainViewModel) :Fragment(){
     val viewModel by lazy { parentViewModel }
@@ -27,16 +23,5 @@ class DetailFragment(parentViewModel: MainViewModel) :Fragment(){
         binding.setVariable(BR.vm, viewModel)
         binding.setLifecycleOwner { lifecycle }
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.inputBtnMode.observe(this as LifecycleOwner, Observer {
-            when(it){
-                8->{
-
-                }
-            }
-        })
     }
 }

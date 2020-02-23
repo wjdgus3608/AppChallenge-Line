@@ -10,42 +10,59 @@
 <LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
-
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
+    >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_back"
-        android:onClick="@{()->vm.handleBtnMode(7)}"
-        android:layout_marginBottom="50dp"/>
+        android:background="@color/line_color"
+        android:theme="@style/Theme.Design.Light.NoActionBar"
+        >
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_back"
+            android:onClick="@{()->vm.handleBtnMode(7)}"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="메모 편집 및 작성"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"/>
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
     <EditText
         android:id="@+id/edit_title_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="메모 제목"
+        android:padding="10dp"
         android:text="@={vm.memoTitle}"
         android:background="@drawable/rounded_background"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
         android:id="@+id/edit_des_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         android:hint="메모 내용"
+        android:padding="10dp"
         android:text="@={vm.memoDes}"
         android:background="@drawable/rounded_background"
         android:layout_marginBottom="10dp"
        />
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,14 +71,14 @@
         android:gravity="end">
         <Button
             android:id="@+id/edit_img_url"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:text="+ 이미지 추가"
             android:textSize="15sp"
             android:textColor="@android:color/white"
             android:onClick="@{()->vm.handleBtnMode(0)}"
-            android:backgroundTint="@color/button_background"/>
+            android:background="@drawable/rounded_btn"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/edit_recyclerview"
@@ -70,19 +87,19 @@
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         bind_pre_items="@{vm.imageList}"
-        bind_vm="@{vm}"/>
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="20dp"
-        android:id="@+id/test_view"/>
+        bind_vm="@{vm}"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <Button
         android:id="@+id/edit_submit_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="메모 추가"
+        android:textSize="15sp"
         android:textColor="@android:color/white"
         android:onClick="@{()->vm.handleBtnMode(6)}"
-        android:backgroundTint="@color/button_background"/>
+        android:background="@drawable/rounded_btn"/>
+    </LinearLayout>
 </LinearLayout>
 </layout>

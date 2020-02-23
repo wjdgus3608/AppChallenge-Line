@@ -1,9 +1,7 @@
 package com.example.line.Utils
 
-import android.content.res.Resources
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.line.DataClass.Memo
@@ -26,9 +24,9 @@ fun bind_pre_items(view : RecyclerView, mList : MutableLiveData<ArrayList<Any>>,
 }
 
 @BindingAdapter("bind_image_items")
-fun bind_image_items(view : ViewPager, mList : ArrayList<Any>){
+fun bind_image_items(view : ViewPager, mList : List<Any>){
     val adapter = view.adapter as? ImagePagerAdapter
         ?: ImagePagerAdapter().apply { view.adapter = this }
-    adapter.inputList = mList
+    adapter.inputList = ArrayList(mList)
     adapter.notifyDataSetChanged()
 }
